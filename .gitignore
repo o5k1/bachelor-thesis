@@ -1,5 +1,7 @@
 *.aux
 *.bat
+*.bcf
+*.tps
 *.glo
 *.idx
 *.log
