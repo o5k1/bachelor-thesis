@@ -68,8 +68,15 @@ Un admin può decidere se mostrare (o mantenere nascosta) agli user una mission 
 \\ \\
 Deve essere possibile fornire una translation per i contenuti testuali di mission, post, question ed in generale tutti gli elementi di gioco con i quali entra in contatto lo user.
 
-\subsection{L'integrazione con Eloquent ORM}
-Nella progettazione dello schema del database si è prestato attenzione ai requisiti necessari per intergrare al meglio Eloquent ORM con il database. Le convenzioni da rispettare sono:.
+\subsection{L'integrazione con Eloquent}
+Per poter sfruttare appieno le potenzialità di Eloquent, l'ORM fornito con Laravel, è necessario rispettare alcune convenzioni:
+\begin{itemize}
+	\item Lo schema di ogni tabella appartenente al database deve prevedere le colonne \verb!created_at! e \verb!updated_at!. Il valore relativo a queste colonne viene automaticamente inserito dall'ORM ogniqualvolta venga creato o modificato un record;
+	\item Lo schema di ogni tabella appartenente al database deve prevedere una colonna relativa alla primary key e tale colonna deve chiamarsi \verb!id!;
+	\item I nomi di tabelle ed attributi devono essere in minuscolo e seguire la convenzione snake case;
+	\item I nomi delle tabelle devono essere pensati al plurale. Ad esempio, la tabella contenente i captcha post dovrà essere chiamata \verb!captcha_posts!;
+		\item Gli attributi che fungono da foreign key devono essere nominati posponendo "`id"` al nome singolare della tabella alla quale si riferiscono. Ad esempio, una foreign key che si riferisca alla tabella users dovrà essere chiamata \verb!user_id!.
+\end{itemize}
 
 \section{Il CMS}
 
