@@ -9,27 +9,27 @@
 %**************************************************************
 
 Sin dalla sua concezione, la piattaforma Plot è stata pensata come un prodotto unico e fatto su misura per il cliente. Questo ha impedito la definizione di una struttura di base sulla quale innestare eventuali cambiamenti. \\
-La prima attività del progetto è stata dunque la consultazione dello schema del database e del codice relativo al CMS di Plot 1.0. Successivamente sono state intervistate le persone coinvolte nello sviluppo di Plot 1.0: developer, responsabili dei contenuti ed utilizzatori del CMS in modo da capire cosa non li soddisfacesse nella struttura attuale e cosa potesse essere fatto per migliorarla.
-Da queste interviste sono stati sintetizzati i requisiti che il database ed il CMS avrebbero dovuto avere. Tali requisiti sono stati fondamentali per la successiva progettazione ma possono risultare utili anche all'azienda per valutare in modo più razionale limiti e possibilità della piattaforma.
+La prima attività del progetto è stata dunque la consultazione dello schema del database e del codice relativo al \gls{cms}\glsfirstoccur{} di Plot 1.0. Successivamente sono state intervistate le persone coinvolte nello sviluppo di Plot 1.0: developer, responsabili dei contenuti ed utilizzatori del \gls{cms}\glsfirstoccur{} in modo da capire cosa non li soddisfacesse nella struttura attuale e cosa potesse essere fatto per migliorarla.
+Da queste interviste sono stati sintetizzati i requisiti che il database ed il \gls{cms}\glsfirstoccur{} avrebbero dovuto avere. Tali requisiti sono stati fondamentali per la successiva progettazione ma possono risultare utili anche all'azienda per valutare in modo più razionale limiti e possibilità della piattaforma.
 
 \section{Requisiti del database}
 \subsection{Descrizione dei requisiti}
 Un \textbf{consumer} è un concetto astratto che rappresenta un generico utilizzatore della piattaforma Plot, esso è caratterizzato da nome, cognome, email e password.
 Un consumer può concretizzarsi nel concetto di admin o user. \\
-Un \textbf{admin} rappresenta un amministratore del CMS, ha quindi l'autorizzazione di accedere al CMS ma non può accedere alla parte di gioco. \\ 
-Uno \textbf{user} rappresenta un utente del gioco e può quindi accedere alla parte di gioco ma non al CMS. \\
+Un \textbf{admin} rappresenta un amministratore del \gls{cms}\glsfirstoccur{}, ha quindi l'autorizzazione di accedere al \gls{cms}\glsfirstoccur{} ma non può accedere alla parte di gioco. \\ 
+Uno \textbf{user} rappresenta un utente del gioco e può quindi accedere alla parte di gioco ma non al \gls{cms}\glsfirstoccur{}. \\
 Solitamente i consumer si autenticano presso la piattaforma tramite email e password ma può capitare che gli user utilizzino un servizio di autenticazione esterno tramite \textit{token}.
 \\ \\
 Un \textbf{invitation} rappresenta un invito che può essere spedito o ricevuto da uno user durante la fase di inviti. Un invitation è caratterizzato dal mittente e dal destinatario, che dovranno essere entrambi user.
 \\ \\
 Terminata la fase di inviti, ogni user appartiene ad un \textbf{team} caratterizzato da un nome e da un'immagine rappresentativa dello stesso. I team vengono creati a priori e sono associati agli user solo al termine della fase di inviti. 
 \\ \\
-Qualsiasi richiesta HTTP effettuata da uno user nel front end di gioco genera un \textbf{log} contenente:
+Qualsiasi richiesta \gls{http}\glsfirstoccur{} effettuata da uno user nel front end di gioco genera un \textbf{log} contenente:
 \begin{itemize}
 	\item Un riferimento allo user che ha effettuato la richiesta;
 	\item Indirizzo IP del dispositivo che ha effettuato la richiesta;
-	\item Il metodo HTTP utilizzato per la richiesta;
-	\item L'URL al quale è stata inoltrata la richiesta;
+	\item Il metodo \gls{http}\glsfirstoccur{} utilizzato per la richiesta;
+	\item L'\gls{url}\glsfirstoccur{} al quale è stata inoltrata la richiesta;
 	\item Lo user agent che ha effettuato la richiesta;
 	\item Eventuali dati aggiuntivi trasportati dalla richiesta.
 \end{itemize}  
@@ -76,7 +76,7 @@ Per poter sfruttare appieno le potenzialità di \textit{Eloquent}, l'ORM fornito
 	\item Lo schema di ogni tabella appartenente al database deve prevedere un singolo attributo che funga da chiave primaria. Tale attributo deve essere chiamato \verb!id!;
 	\item I nomi delle tabelle e degli attributi devono essere in minuscolo e seguire la convenzione \gls{snakecase}\glsfirstoccur{};
 	\item I nomi delle tabelle devono essere pensati al plurale. Ad esempio, la tabella contenente i captcha post dovrà essere chiamata \verb!captcha_posts!;
-		\item Gli attributi che fungono da chiave esterna devono essere nominati posponendo "id" al nome singolare della tabella alla quale si riferiscono. Ad esempio, una chiave esterna varso la tabella users dovrà essere chiamata \verb!user_id!.
+		\item Gli attributi che fungono da chiave esterna devono essere nominati posponendo "id" al nome singolare della tabella alla quale si riferiscono. Ad esempio, una chiave esterna verso la tabella users dovrà essere chiamata \verb!user_id!.
 \end{itemize}
 
 \section{Requisiti del CMS}
@@ -104,10 +104,10 @@ Una volta effettuata l'autenticazione, l'utente deve poter gestire: mission, amm
           \begin{enumerate}
           \item L'utente può autenticarsi presso la piattaforma (\hyperlink{UC1}{UC1});
           \item L'utente autenticato può gestire le mission previste dal Plot (\hyperlink{UC2}{UC2});
-          \item L'utente autenticato può gestire gli utenti del gioco (\hyperlink{UC3}{UC3});
-          \item L'utente autenticato può gestire i team del gioco (\hyperlink{UC4}{UC4});
-          \item L'utente autenticato può gestire gli amministratori della piattaforma (\hyperlink{UC5}{UC5});
-          \item L'utente autenticato può gestire i log generati dagli utenti del gioco (\hyperlink{UC6}{UC6}).
+          \item L'utente autenticato può gestire gli utenti del gioco;
+          \item L'utente autenticato può gestire i team del gioco;
+          \item L'utente autenticato può gestire gli amministratori della piattaforma;
+          \item L'utente autenticato può gestire i log generati dagli utenti del gioco.
 
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente;
@@ -150,11 +150,11 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista delle mission (\hyperlink{UC2.1}{UC2.1});
+          \item L'utente autenticato può visualizzare la lista delle mission;
           \item L'utente autenticato può visualizzare i dettagli di una specifica mission (\hyperlink{UC2.2}{UC2.2});
           \item L'utente autenticato può creare una nuova mission (\hyperlink{UC2.3}{UC2.3});
           \item L'utente autenticato può modificare i dettagli di una specifica mission (\hyperlink{UC2.4}{UC2.4});
-          \item L'utente autenticato può rimuovere una mission (\hyperlink{UC2.5}{UC2.5});
+          \item L'utente autenticato può rimuovere una mission;
           \item L'utente autenticato può gestire le traduzioni relative al nome di una specifica mission (\hyperlink{UC2.6}{UC2.6});
           \item L'utente autenticato può gestire i post di testo collegati ad una specifica mission (\hyperlink{UC2.7}{UC2.7});
           \item L'utente autenticato può gestire i post di tipo captcha collegati ad una specifica mission (\hyperlink{UC2.8}{UC2.8});
@@ -162,20 +162,6 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
-  \end{itemize}
-\hypertarget{UC2.1}{}
-\subsection{Caso d'uso UC2.1: visualizzazione lista mission}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le mission del Plot; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista delle mission del Plot.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle mission del Plot.
   \end{itemize}
 \hypertarget{UC2.2}{}
 \subsection{Caso d'uso UC2.2: visualizzazione dettagli mission}
@@ -187,7 +173,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
           \item L'utente autenticato visualizza il nome di default della mission;
-          \item L'utente autenticato visualizza l'URL dell'immagine rappresentativa della mission;
+          \item L'utente autenticato visualizza l'\gls{url}\glsfirstoccur{} dell'immagine rappresentativa della mission;
           \item L'utente autenticato visualizza la data d'inizio della mission;
           \item L'utente autenticato visualizza la data di fine della mission;
           \item L'utente autenticato visualizza il grado di visibilità della mission. Questo indica se la mission è visibile o meno agli utenti di gioco.
@@ -205,7 +191,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
           \item L'utente autenticato inserisce il nome di default della mission;
-          \item L'utente autenticato può inserire l'URL di un'immagine rappresentativa della mission;
+          \item L'utente autenticato può inserire l'\gls{url}\glsfirstoccur{} di un'immagine rappresentativa della mission;
           \item L'utente autenticato può inserire la data di inizio della mission;
           \item L'utente autenticato può inserire la data di fine della mission;
           \item L'utente autenticato può inserire il grado di visibilità della mission. Questo indica se la mission è visibile o meno agli utenti di gioco.
@@ -223,7 +209,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
           \item L'utente autenticato può modificare il nome di default della mission;
-          \item L'utente autenticato può modificare il l'URL dell'immagine rappresentativa della mission;
+          \item L'utente autenticato può modificare il l'\gls{url}\glsfirstoccur{} dell'immagine rappresentativa della mission;
           \item L'utente autenticato può modificare la data d'inizio della mission;
           \item L'utente autenticato può modificare la data di fine della mission;
           \item L'utente autenticato può modificare il grado di visibilità della mission. Questo indica se la mission è visibile o meno agli utenti di gioco.
@@ -231,24 +217,11 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli della mission modificata all'utente.
   \end{itemize}
-\hypertarget{UC2.5}{}
-\subsection{Caso d'uso UC2.5: rimozione mission}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere una mission dal gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La mission che si vuole rimuovere deve esistere;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove una particolare mission.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: la mission viene rimossa dal sistema e non può più essere recuperata. Il sistema mostra all'utente una lista delle mission ancora presenti nel gioco.
-  \end{itemize}
 \hypertarget{UC2.6}{}
 \subsection{Caso d'uso UC2.6: gestione traduzioni nome mission}
 
-        \begin{figure}[H]
+        \begin{figure}
             \centering
             \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC2-6.png}
             \caption{Caso d'uso UC2.6: gestione traduzioni nome mission}\label{fig:UC2.6} 
@@ -260,29 +233,16 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il nome della mission (\hyperlink{UC2.6.1}{UC2.6.1});
+          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il nome della mission;
           \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il nome della mission (\hyperlink{UC2.6.2}{UC2.6.2});
           \item L'utente autenticato può creare una nuova traduzione per il nome della mission (\hyperlink{UC2.6.3}{UC2.6.3});
           \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il nome della mission (\hyperlink{UC2.6.4}{UC2.6.4});
-          \item L'utente autenticato può rimuovere una traduzione relativa al nome della mission (\hyperlink{UC2.6.5}{UC2.6.5}).
+          \item L'utente autenticato può rimuovere una traduzione relativa al nome della mission.
 
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.6.1}{}
-\subsection{Caso d'uso UC2.6.1: visualizzazione lista traduzioni nome mission}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le traduzioni previste per il nome di una specifica mission; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista delle traduzioni previste per il nome della specifica mission.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle traduzioni previste per il nome della specifica mission.
-  \end{itemize}
 \hypertarget{UC2.6.2}{}
 \subsection{Caso d'uso UC2.6.2: visualizzazione dettagli traduzione nome mission}
 \begin{itemize}
@@ -328,20 +288,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli della traduzione modificata all'utente.
   \end{itemize}
-\hypertarget{UC2.6.5}{}
-\subsection{Caso d'uso UC2.6.5: rimozione traduzione nome mission}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere una traduzione relativa al nome della mission; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole rimuovere deve esistere;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove una particolare traduzione relativa al nome della mission.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: la traduzione viene rimossa dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista delle traduzioni relative al nome della mission ancora presenti nel sistema.
-  \end{itemize}
 \hypertarget{UC2.7}{}
 \subsection{Caso d'uso UC2.7: gestione post di testo}
 
@@ -357,7 +304,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare una lista di tutti i post di testo relativi alla mission (\hyperlink{UC2.7.1}{UC2.7.1});
+          \item L'utente autenticato può visualizzare una lista di tutti i post di testo relativi alla mission;
           \item L'utente autenticato può visualizzare i dettagli di uno specifico post di testo collegato alla mission (\hyperlink{UC2.7.2}{UC2.7.2});
           \item L'utente autenticato può creare un nuovo post di testo collegato alla mission (\hyperlink{UC2.7.3}{UC2.7.3});
           \item L'utente autenticato può modificare i dettagli di un particolare post di testo collegato alla mission (\hyperlink{UC2.7.4}{UC2.7.4});
@@ -367,20 +314,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.7.1}{}
-\subsection{Caso d'uso UC2.7.1: visualizzazione lista post di testo}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti i post di testo collegati ad una specifica mission; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item l'utente visualizza la lista dei post di testo collegati alla specifica mission.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista dei post di testo collegati ad una specifica mission.
-  \end{itemize}
 \hypertarget{UC2.7.2}{}
 \subsection{Caso d'uso UC2.7.2: visualizzazione dettagli post di testo}
 \begin{itemize}
@@ -443,7 +377,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 \hypertarget{UC2.7.6}{}
 \subsection{Caso d'uso UC2.7.6: gestione traduzioni contenuto post di testo}
 
-        \begin{figure}[H]
+        \begin{figure}
             \centering
             \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC2-7-6.png}
             \caption{Caso d'uso UC2.7.6: gestione traduzioni contenuto post di testo}\label{fig:UC2.7.6} 
@@ -455,92 +389,19 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il contenuto del post di testo (\hyperlink{UC2.7.6.1}{UC2.7.6.1});
-          \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il contenuto del post di testo (\hyperlink{UC2.7.6.2}{UC2.7.6.2});
-          \item L'utente autenticato può creare una nuova traduzione per il contenuto del post di testo (\hyperlink{UC2.7.6.3}{UC2.7.6.3});
-          \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il contenuto del post di testo (\hyperlink{UC2.7.6.4}{UC2.7.6.4});
-          \item L'utente autenticato può rimuovere una traduzione relativa al contenuto del post di testo (\hyperlink{UC2.7.6.5}{UC2.7.6.5}).
+          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il contenuto del post di testo;
+          \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il contenuto del post di testo;
+          \item L'utente autenticato può creare una nuova traduzione per il contenuto del post di testo;
+          \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il contenuto del post di testo;
+          \item L'utente autenticato può rimuovere una traduzione relativa al contenuto del post di testo.
 
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.7.6.1}{}
-\subsection{Caso d'uso UC2.7.6.1: visualizzazione traduzioni contenuto post di testo}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le traduzioni previste contenuto di uno specifico post di testo; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista delle traduzioni previste per il contenuto dello specifico post di testo.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle traduzioni previste per il contenuto dello specifico post di testo.
-  \end{itemize}
-\hypertarget{UC2.7.6.2}{}
-\subsection{Caso d'uso UC2.7.6.2: visualizzazione dettagli traduzione contenuto post di testo}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli relativi ad una specifica traduzione relativa al contenuto di un post di testo; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la traduzione del contenuto del post di tipo testo;
-          \item L'utente autenticato visualizza la lingua relativa alla traduzione.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra all'utente i dettagli dell'a traduzione richiesta.
-  \end{itemize}
-\hypertarget{UC2.7.6.3}{}
-\subsection{Caso d'uso UC2.7.6.3: creazione nuova traduzione contenuto post di testo}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare una nuova traduzione relativa al contenuto di un post di tipo testo. La nuova traduzione è caratterizzata dalla lingua, in quanto non possono esistere due traduzioni fornite nella medesima lingua e riferite al medesimo contenuto; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente inserisce il testo della traduzione relativa al contenuto del post di tipo testo;
-          \item L'utente inserisce la lingua della traduzione relativa al contenuto del post di tipo testo.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema crea una nuova traduzione e ne mostra i dettagli all'utente.
-  \end{itemize}
-\hypertarget{UC2.7.6.4}{}
-\subsection{Caso d'uso UC2.7.6.4: modifica dettagli traduzione contenuto post di testo}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare i dettagli relativi ad una traduzione esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare il testo della traduzione relativa al contenuto del post di testo;
-          \item L'utente autenticato può modificare la lingua della traduzione relativa al contenuto del post di testo.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli della traduzione modificata all'utente.
-  \end{itemize}
-\hypertarget{UC2.7.6.5}{}
-\subsection{Caso d'uso UC2.7.6.5: rimozione traduzione contenuto post di testo}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere una traduzione relativa al contenuto del post di testo; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove una particolare traduzione relativa al contenuto del post di testo.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: la traduzione viene rimossa dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista delle traduzioni relative al contenuto del post di tipo testo ancora presenti nel sistema.
-  \end{itemize}
 \hypertarget{UC2.8}{}
 \subsection{Caso d'uso UC2.8: gestione post captcha}
 
-        \begin{figure}[H]
+        \begin{figure}
             \centering
             \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC2-8.png}
             \caption{Caso d'uso UC2.8: gestione post captcha}\label{fig:UC2.8} 
@@ -552,7 +413,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare una lista di tutti i post captcha relativi alla mission (\hyperlink{UC2.8.1}{UC2.8.1});
+          \item L'utente autenticato può visualizzare una lista di tutti i post captcha relativi alla mission;
           \item L'utente autenticato può visualizzare i dettagli di uno specifico post captcha collegato alla mission (\hyperlink{UC2.8.2}{UC2.8.2});
           \item L'utente autenticato può creare un nuovo post captcha collegato alla mission (\hyperlink{UC2.8.3}{UC2.8.3});
           \item L'utente autenticato può modificare i dettagli di un particolare post captcha collegato alla mission (\hyperlink{UC2.8.4}{UC2.8.4});
@@ -563,20 +424,7 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.8.1}{}
-\subsection{Caso d'uso UC2.8.1: visualizzazione lista post captcha}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti i post captcha collegati ad una specifica mission; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item l'utente visualizza la lista dei post captcha collegati alla specifica mission.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista dei post captcha collegati ad una specifica mission.
-  \end{itemize}
 \hypertarget{UC2.8.2}{}
 \subsection{Caso d'uso UC2.8.2: visualizzazione dettagli post captcha}
 \begin{itemize}
@@ -653,88 +501,16 @@ Inoltre deve essere possibile gestire i post legati ad una specifica mission e l
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il contenuto del post captcha (\hyperlink{UC2.8.6.1}{UC2.8.6.1});
-          \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il contenuto del post captcha (\hyperlink{UC2.8.6.2}{UC2.8.6.2});
-          \item L'utente autenticato può creare una nuova traduzione per il contenuto del post captcha (\hyperlink{UC2.8.6.3}{UC2.8.6.3});
-          \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il contenuto del post captcha (\hyperlink{UC2.8.6.4}{UC2.8.6.4});
-          \item L'utente autenticato può rimuovere una traduzione relativa al contenuto del post captcha (\hyperlink{UC2.8.6.5}{UC2.8.6.5}).
+          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il contenuto del post captcha;
+          \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il contenuto del post captcha;
+          \item L'utente autenticato può creare una nuova traduzione per il contenuto del post captcha;
+          \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il contenuto del post captcha;
+          \item L'utente autenticato può rimuovere una traduzione relativa al contenuto del post captcha.
 
       \end{enumerate}
     \item \textbf{Postcondizione}: 	il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.8.6.1}{}
-\subsection{Caso d'uso UC2.8.6.1: visualizzazione lista traduzioni contenuto post captcha}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le traduzioni previste contenuto di uno specifico post captcha; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista delle traduzioni previste per il contenuto dello specifico post captcha.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle traduzioni previste per il contenuto dello specifico post captcha.
-  \end{itemize}
-\hypertarget{UC2.8.6.2}{}
-\subsection{Caso d'uso UC2.8.6.2: visualizzazione dettagli traduzione contenuto post captcha}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli relativi ad una specifica traduzione relativa al contenuto di un post captcha; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la traduzione del contenuto del post di tipo captcha;
-          \item L'utente autenticato visualizza la lingua relativa alla traduzione.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra all'utente i dettagli della traduzione richiesta.
-  \end{itemize}
-\hypertarget{UC2.8.6.3}{}
-\subsection{Caso d'uso UC2.8.6.3: creazione nuova traduzione contenuto post captcha}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare una nuova traduzione relativa al contenuto di un post di tipo captcha. La nuova traduzione è caratterizzata dalla lingua, in quanto non possono esistere due traduzioni fornite nella medesima lingua e riferite al medesimo contenuto; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente inserisce il testo della traduzione relativa al contenuto del post di tipo captcha;
-          \item L'utente inserisce la lingua della traduzione relativa al contenuto del post di tipo captcha.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema crea una nuova traduzione e ne mostra i dettagli all'utente.
-  \end{itemize}
-\hypertarget{UC2.8.6.4}{}
-\subsection{Caso d'uso UC2.8.6.4: modifica dettagli traduzione contenuto post captcha}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare i dettagli relativi ad una traduzione esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare il testo della traduzione relativa al contenuto del post captcha;
-          \item L'utente autenticato può modificare la lingua della traduzione relativa al contenuto del post captcha.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli della traduzione modificata all'utente.
-  \end{itemize}
-\hypertarget{UC2.8.6.5}{}
-\subsection{Caso d'uso UC2.8.6.5: rimozione traduzione contenuto post captcha}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere una traduzione relativa al contenuto del post captcha; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove una particolare traduzione relativa al contenuto del post captcha.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: la traduzione viene rimossa dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista delle traduzioni relative al contenuto del post captcha presenti nel sistema.
-  \end{itemize}
 \hypertarget{UC2.8.7}{}
 \subsection{Caso d'uso UC2.8.7: gestione domande utente}
 
@@ -752,7 +528,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare una lista di tutte le domande collegate ad uno specifico post captcha (\hyperlink{UC2.8.7.1}{UC2.8.7.1});
+          \item L'utente autenticato può visualizzare una lista di tutte le domande collegate ad uno specifico post captcha;
           \item L'utente autenticato può visualizzare i dettagli di una specifica domanda collegata al post captcha (\hyperlink{UC2.8.7.2}{UC2.8.7.2});
           \item L'utente autenticato può creare un nuova domanda collegata al post captcha (\hyperlink{UC2.8.7.3}{UC2.8.7.3});
           \item L'utente autenticato può modificare i dettagli di una particolare domanda collegata al post di tipo captcha (\hyperlink{UC2.8.7.4}{UC2.8.7.4});
@@ -764,21 +540,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.8.7.1}{}
-\subsection{Caso d'uso UC2.8.7.1: visualizzazione lista domande utente}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le domande collegate ad uno specifico post captcha
-; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item l'utente visualizza la lista delle domande collegate ad uno specifico post captcha.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle domande collegate ad uno specifico post captcha.
-  \end{itemize}
 \hypertarget{UC2.8.7.2}{}
 \subsection{Caso d'uso UC2.8.7.2: visualizzazione dettagli domanda utente}
 \begin{itemize}
@@ -862,7 +624,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
 \hypertarget{UC2.8.7.7}{}
 \subsection{Caso d'uso UC2.8.7.7: gestione utenti indirizzati dalla domanda}
 
-        \begin{figure}[H]
+        \begin{figure}
             \centering
             \includegraphics[scale=0.45, width=\textwidth]{immagini/usecase/UC2-8-7-7.png}
             \caption{Caso d'uso UC2.8.7.7: gestione utenti indirizzati dalla domanda}\label{fig:UC2.8.7.7} 
@@ -874,26 +636,13 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare una lista di tutti gli utenti indirizzati da una specifica domanda, collegata al post captcha (\hyperlink{UC2.8.7.7.1}{UC2.8.7.7.1});
+          \item L'utente autenticato può visualizzare una lista di tutti gli utenti indirizzati da una specifica domanda, collegata al post captcha;
           \item L'utente autenticato può rimuovere un particolare utente indirizzato dalla domanda (\hyperlink{UC2.8.7.7.2}{UC2.8.7.7.2}).
 
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.8.7.7.1}{}
-\subsection{Caso d'uso UC2.8.7.7.1: visualizzazione lista utenti indirizzati}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti gli utenti di gioco ai quali una specifica domanda (collegata ad un post di tipo captcha) è rivolta; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item l'utente visualizza la lista degli utenti indirizzati da una specifica domanda.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista degli utenti di gioco indirizzati dalla domanda.
-  \end{itemize}
 \hypertarget{UC2.8.7.7.2}{}
 \subsection{Caso d'uso UC2.8.7.7.2: rimozione utente indirizzato}
 \begin{itemize}
@@ -973,7 +722,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare una lista di tutti i post team relativi alla mission (\hyperlink{UC2.9.1}{UC2.9.1});
+          \item L'utente autenticato può visualizzare una lista di tutti i post team relativi alla mission;
           \item L'utente autenticato può visualizzare i dettagli di uno specifico post team collegato alla mission (\hyperlink{UC2.9.2}{UC2.9.2});
           \item L'utente autenticato può creare un nuovo post team collegato alla mission (\hyperlink{UC2.9.3}{UC2.9.3});
           \item L'utente autenticato può modificare i dettagli di un particolare post team collegato alla mission (\hyperlink{UC2.9.4}{UC2.9.4});
@@ -984,21 +733,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.9.1}{}
-\subsection{Caso d'uso UC2.9.1: visualizzazione lista post team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti i post team collegati ad una specifica mission; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema
-;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item l'utente visualizza la lista dei post team collegati alla specifica mission.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista dei post captcha collegati ad una specifica mission.
-  \end{itemize}
 \hypertarget{UC2.9.2}{}
 \subsection{Caso d'uso UC2.9.2: visualizzazione dettagli post team}
 \begin{itemize}
@@ -1076,94 +811,20 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il contenuto del post team (\hyperlink{UC2.9.6.1}{UC2.9.6.1});
-          \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il contenuto del post team (\hyperlink{UC2.9.6.2}{UC2.9.6.2});
-          \item L'utente autenticato può creare una nuova traduzione per il contenuto del post team (\hyperlink{UC2.9.6.3}{UC2.9.6.3});
-          \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il contenuto del post team (\hyperlink{UC2.9.6.4}{UC2.9.6.4});
-          \item L'utente autenticato può rimuovere una traduzione relativa al contenuto del post team (\hyperlink{UC2.9.6.5}{UC2.9.6.5}).
+          \item L'utente autenticato può visualizzare la lista delle traduzioni previste per il contenuto del post team;
+          \item L'utente autenticato può visualizzare i dettagli di una particolare traduzione prevista per il contenuto del post team;
+          \item L'utente autenticato può creare una nuova traduzione per il contenuto del post team ;
+          \item L'utente autenticato può modificare i dettagli di una particolare traduzione per il contenuto del post team;
+          \item L'utente autenticato può rimuovere una traduzione relativa al contenuto del post team.
 
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.9.6.1}{}
-\subsection{Caso d'uso UC2.9.6.1: visualizzazione lista traduzioni contenuto post team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le traduzioni previste contenuto di uno specifico post team; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista delle traduzioni previste per il contenuto dello specifico post team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle traduzioni previste per il contenuto dello specifico post team.
-  \end{itemize}
-\hypertarget{UC2.9.6.2}{}
-\subsection{Caso d'uso UC2.9.6.2: visualizzazione dettagli traduzione contenuto post team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli relativi ad una specifica traduzione relativa al contenuto di un post team; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la traduzione del contenuto del post di tipo team;
-          \item L'utente autenticato visualizza la lingua relativa alla traduzione	.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra all'utente i dettagli della traduzione richiesta.
-  \end{itemize}
-\hypertarget{UC2.9.6.3}{}
-\subsection{Caso d'uso UC2.9.6.3: creazione nuova traduzione contenuto post team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare una nuova traduzione relativa al contenuto di un post di tipo team. La nuova traduzione è caratterizzata dalla lingua, in quanto non possono esistere due traduzioni fornite nella medesima lingua e riferite al medesimo contenuto; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente inserisce il testo della traduzione relativa al contenuto del post di tipo team;
-          \item L'utente inserisce la lingua della traduzione relativa al contenuto del post di tipo team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema crea una nuova traduzione e ne mostra i dettagli all'utente.
-  \end{itemize}
-	
-	
-\hypertarget{UC2.9.6.4}{}
-\subsection{Caso d'uso UC2.9.6.4: modifica dettagli traduzione contenuto post  team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare i dettagli relativi ad una traduzione esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare il testo della traduzione relativa al contenuto del post team;
-          \item L'utente autenticato può modificare la lingua della traduzione relativa al contenuto del post team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli della traduzione modificata all'utente.
-  \end{itemize}
-\hypertarget{UC2.9.6.5}{}
-\subsection{Caso d'uso UC2.9.6.5: rimozione traduzione contenuto post team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere una traduzione relativa al contenuto del post team; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. La traduzione che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove una particolare traduzione relativa al contenuto del post team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: la traduzione viene rimossa dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista delle traduzioni relative al contenuto del post team presenti nel sistema.
-  \end{itemize}
 \hypertarget{UC2.9.7}{}
 \subsection{Caso d'uso UC2.9.7: gestione domande team}
 
-        \begin{figure}
+        \begin{figure}[H]
             \centering
             \includegraphics[scale=0.65, width=\textwidth]{immagini/usecase/UC2-9-7.png}
             \caption{Caso d'uso UC2.9.7: gestione domande team}\label{fig:UC2.9.7} 
@@ -1175,7 +836,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
 
         \item \textbf{Flusso principale degli eventi}:
           \begin{enumerate}
-          \item L'utente autenticato può visualizzare una lista di tutte le domande collegate ad uno specifico post team (\hyperlink{UC2.9.7.1}{UC2.9.7.1});
+          \item L'utente autenticato può visualizzare una lista di tutte le domande collegate ad uno specifico post team;
           \item L'utente autenticato può visualizzare i dettagli di una specifica domanda collegata al post team (\hyperlink{UC2.9.7.2}{UC2.9.7.2});
           \item L'utente autenticato può creare un nuova domanda collegata al post team (\hyperlink{UC2.9.7.3}{UC2.9.7.3});
           \item L'utente autenticato può modificare i dettagli di una particolare domanda collegata al post di tipo team (\hyperlink{UC2.9.7.4}{UC2.9.7.4});
@@ -1187,20 +848,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
   \end{itemize}
-\hypertarget{UC2.9.7.1}{}
-\subsection{Caso d'uso UC2.9.7.1: visualizzazione lista domande team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutte le domande collegate ad uno specifico post team; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
 
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item l'utente visualizza la lista delle domande collegate ad uno specifico post team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista delle domande collegate ad uno specifico post team.
-  \end{itemize}
 \hypertarget{UC2.9.7.2}{}
 \subsection{Caso d'uso UC2.9.7.2: visualizzazione dettagli domanda team}
 \begin{itemize}
@@ -1376,436 +1024,7 @@ Le domande utente sono domande rivolte ai singoli utenti del gioco;
       \end{enumerate}
     \item \textbf{Postcondizione}: il sistema mostra la lista dei team in gioco indirizzati dalla domanda.
   \end{itemize}
-\hypertarget{UC3}{}
-\subsection{Caso d'uso UC3: gestione user}
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC3.png}
-            \caption{Caso d'uso UC3: gestione user}\label{fig:UC3} 
-        \end{figure}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: un utente autenticato deve poter gestire gli aspetti di base legati agli utenti del gioco: creazione, visualizzazione, modifica e rimozione; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista degli utenti del gioco (\hyperlink{UC3.1}{UC3.1});
-          \item L'utente autenticato può visualizzare i dettagli di uno specifico utente del gioco (\hyperlink{UC3.2}{UC3.2});
-          \item L'utente autenticato può creare un nuovo utente del gioco (\hyperlink{UC3.3}{UC3.3});
-          \item L'utente autenticato può modificare i dettagli di uno specifico utente di gioco (\hyperlink{UC3.4}{UC3.4});
-          \item L'utente autenticato può rimuovere un utente del gioco (\hyperlink{UC3.5}{UC3.5}).
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
-  \end{itemize}
-\hypertarget{UC3.1}{}
-\subsection{Caso d'uso UC3.1: visualizzazione lista user}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti gli utenti del gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista degli utenti del gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista degli utenti del gioco.
-  \end{itemize}
-\hypertarget{UC3.2}{}
-\subsection{Caso d'uso UC3.2: visualizzazione dettagli user}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli relativi ad uno specifico utente del gioco; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. L'utente del gioco che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza il nome dell'utente di gioco;
-          \item L'utente autenticato visualizza il cognome dell'utente di gioco;
-          \item L'utente autenticato visualizza l'email dell'utente di gioco;
-          \item L'utente autenticato visualizza l'ambito lavorativo dell'utente di gioco;
-          \item L'utente autenticato visualizza la regione di appartenenza dell'utente di gioco;
-          \item L'utente autenticato visualizza la lingua preferita dell'utente di gioco;
-          \item L'utente autenticato visualizza il team dell'utente di gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra all'utente i dettagli dell'utente del gioco richiesto.
-  \end{itemize}
-\hypertarget{UC3.3}{}
-\subsection{Caso d'uso UC3.3: creazione nuovo user}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare un nuovo utente del gioco; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato inserisce il nome dell'utente del gioco;
-          \item L'utente autenticato inserisce il cognome dell'utente del gioco;
-          \item L'utente autenticato inserisce l'indirizzo email dell'utente del gioco;
-          \item L'utente autenticato può inserire la password dell'utente del gioco;
-          \item L'utente autenticato può inserire l'ambito lavorativo dell'utente del gioco;
-          \item L'utente autenticato può inserire la regione d'appartenenza dell'utente del gioco;
-          \item L'utente autenticato può inserire la lingua preferita dell'utente del gioco;
-          \item L'utente autenticato può inserire il team dell'utente del gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema crea un nuovo utente del gioco e ne mostra i dettagli all'utente.
-  \end{itemize}
-	
-\hypertarget{UC3.4}{}
-\subsection{Caso d'uso UC3.4: modifica dettagli user esistente}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare i dettagli relativi ad un utente del gioco esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. L'utente del gioco che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare il nome dell'utente del gioco;
-          \item L'utente autenticato può modificare il cognome dell'utente del gioco;
-          \item L'utente autenticato può modificare l'indirizzo email dell'utente del gioco;
-          \item L'utente autenticato può modificare l'ambito lavorativo dell'utente del gioco;
-          \item L'utente autenticato può modificare la regione di appartenenza dell'utente del gioco;
-          \item L'utente autenticato può modificare la lingua preferita dell'utente del gioco;
-          \item L'utente autenticato può modificare il team di appartenenza dell'utente del gioco;
-          \item L'utente autenticato può modificare il team di appartenenza dell'utente del gioco;
-          \item L'utente autenticato può modificare il team di appartenenza dell'utente del gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli dell'utente di gioco modificato all'utente autenticato.
-  \end{itemize}
-\hypertarget{UC3.5}{}
-\subsection{Caso d'uso UC3.5: rimozione user}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere un utente del gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. L'utente che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove un particolare utente dal gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: l'utente viene rimosso dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista degli utenti ancora presenti nel gioco.
-  \end{itemize}
-\hypertarget{UC4}{}
-\subsection{Caso d'uso UC4: gestione team}
-
-        \begin{figure}
-            \centering
-            \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC4.png}
-            \caption{Caso d'uso UC4: gestione team}\label{fig:UC4} 
-        \end{figure}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: un utente autenticato deve poter gestire gli aspetti di base legati ai team: creazione, visualizzazione, modifica e rimozione; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista dei team (\hyperlink{UC4.1}{UC4.1});
-          \item L'utente autenticato può visualizzare i dettagli di uno specifico team (\hyperlink{UC4.2}{UC4.2});
-          \item L'utente autenticato può creare un team (\hyperlink{UC4.3}{UC4.3});
-          \item L'utente autenticato può modificare i dettagli di uno specifico team (\hyperlink{UC4.4}{UC4.4});
-          \item L'utente autenticato può rimuovere un team (\hyperlink{UC4.5}{UC4.5}).
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
-  \end{itemize}
-\hypertarget{UC4.1}{}
-\subsection{Caso d'uso UC4.1: visualizzazione lista team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti i team in gioco. Ogni team deve riportare il numero di componenti e il punteggio totale, ovvero la somma dei punteggi ottenuti nelle mission disputate; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista dei team in gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista dei team in gioco.
-  \end{itemize}
-\hypertarget{UC4.2}{}
-\subsection{Caso d'uso UC4.2: visualizzazione dettagli team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli relativi ad uno specifico team in gioco; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. Il team che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza il nome del team;
-          \item L'utente autenticato visualizza l'URL dell'immagine rappresentativa del team;
-          \item L'utente autenticato visualizza la lista degli utenti del gioco appartenenti al team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra all'utente i dettagli del team richiesto.
-  \end{itemize}
-\hypertarget{UC4.3}{}
-\subsection{Caso d'uso UC4.3: creazione nuovo team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare un nuovo team di gioco; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato inserisce il nome del team;
-          \item L'utente autenticato può inserire l'URL di un'immagine rappresentativa del team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema crea un nuovo team e ne mostra i dettagli all'utente.
-  \end{itemize}
-\hypertarget{UC4.4}{}
-\subsection{Caso d'uso UC4.4: modifica dettagli team esistente}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare i dettagli relativi ad un team esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. Il team che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare il nome del team;
-          \item L'utente autenticato può modificare l'URL dell'immagine rappresentativa del team.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli del team modificato all'utente.
-  \end{itemize}
-\hypertarget{UC4.5}{}
-\subsection{Caso d'uso UC4.5: rimozione team}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere un team di gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. Il team che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove un particolare team di gioco	.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: Il team viene rimosso dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista degi team ancora presenti nel sistema.
-  \end{itemize}
-\hypertarget{UC5}{}
-\subsection{Caso d'uso UC5: gestione admin}
-
-        \begin{figure}
-            \centering
-            \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC5.png}
-            \caption{Caso d'uso UC5: gestione admin}\label{fig:UC5} 
-        \end{figure}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: un utente autenticato deve poter gestire gli aspetti di base legati agli amministratori della piattaforma: creazione, visualizzazione, modifica e rimozione; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può visualizzare la lista degli amministratori della piattaforma (\hyperlink{UC5.1}{UC5.1});
-          \item L'utente autenticato può visualizzare i dettagli di uno specifico amministratore della piattaforma (\hyperlink{UC5.2}{UC5.2});
-          \item L'utente autenticato può creare un nuovo amministratore della piattaforma (\hyperlink{UC5.3}{UC5.3});
-          \item L'utente autenticato può modificare i dettagli di uno specifico amministratore della piattaforma (\hyperlink{UC5.4}{UC5.4});
-          \item L'utente autenticato può rimuovere un amministratore della piattaforma (\hyperlink{UC5.5}{UC5.5}).
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
-  \end{itemize}
-\hypertarget{UC5.1}{}
-\subsection{Caso d'uso UC5.1: visualizzazione lista admin}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti gli amministratori della piattaforma. Gli amministratori sono coloro che possono utilizzare le funzionalità offerte dalla piattaforma; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista degli amministratori della piattaforma.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista degli amministratori della piattaforma.
-  \end{itemize}
-\hypertarget{UC5.2}{}
-\subsection{Caso d'uso UC5.2: visualizzazione dettagli admin}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli relativi ad uno specifico amministratore della piattaforma; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. L'amministratore che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza il nome dell'amministratore della piattaforma;
-          \item L'utente autenticato visualizza il cognome dell'amministratore della piattaforma;
-          \item L'utente autenticato visualizza l'email dell'amministratore della piattaforma.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra all'utente i dettagli dell'amministratore richiesto.
-  \end{itemize}
-\hypertarget{UC5.3}{}
-\subsection{Caso d'uso UC5.3: creazione nuovo admin}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare un nuovo amministratore della piattaforma ; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato inserisce il nome dell'amministratore della piattaforma;
-          \item L'utente autenticato inserisce il cognome dell'amministratore della piattaforma;
-          \item L'utente autenticato inserisce l'email dell'amministratore della piattaforma;
-          \item L'utente autenticato inserisce la password dell'amministratore della piattaforma.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema crea un nuovo amministratore della piattaforma e ne mostra i dettagli all'utente.
-  \end{itemize}
-\hypertarget{UC5.4}{}
-\subsection{Caso d'uso UC5.4: modifica dettagli admin esistente}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare i dettagli relativi ad un amministratore esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. L'amministratore che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare il nome dell'amministratore;
-          \item L'utente autenticato può modificare il cognome dell'amministratore;
-          \item L'utente autenticato può modificare l'email dell'amministratore.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema apporta le modifiche richieste e mostra i dettagli dell'amministratore modificato all'utente.
-  \end{itemize}
-\hypertarget{UC5.5}{}
-\subsection{Caso d'uso UC5.5: rimozione admin}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere un amministratore della piattaforma; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. L'amministratore che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove un particolare amministratore della piattaforma.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: l'amministratore viene rimosso dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista degli amministratori ancora presenti nel sistema.
-  \end{itemize}
-\hypertarget{UC6}{}
-\subsection{Caso d'uso UC6: gestione log}
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale=0.95, width=\textwidth]{immagini/usecase/UC6.png}
-            \caption{Caso d'uso UC6: gestione log}\label{fig:UC6} 
-        \end{figure}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: un utente autenticato che accede alla piattaforma dal web deve poter gestire la visualizzazione e la rimozione dei log generati dagli utenti del gioco.
-In aggiunta a ciò, un utente autenticato che accede alla piattaforma attraverso le API deve poter creare un nuovo log e modificare un log esistente; 
-      \item \textbf{Precondizione}: l'utente accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato che accede tramite web può visualizzare la lista dei log (\hyperlink{UC6.1}{UC6.1});
-          \item L'utente autenticato che accede tramite web può rimuovere un log (\hyperlink{UC6.2}{UC6.2});
-          \item L'utente autenticato che accede tramite API può visualizzare i dettagli di uno specifico log (\hyperlink{UC6.3}{UC6.3});
-          \item L'utente autenticato che accede tramite API può creare un nuovo log (\hyperlink{UC6.4}{UC6.4});
-          \item L'utente autenticato che accede tramite API può modificare i dettagli di uno specifico log (\hyperlink{UC6.5}{UC6.5}).
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema ha erogato le funzionalità richieste dall'utente.
-  \end{itemize}
-\hypertarget{UC6.1}{}
-\subsection{Caso d'uso UC6.1: visualizzazione lista log}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare una lista di tutti i log generati dalle richieste HTTP effettuate dagli utenti di gioco ; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza la lista dei log generati dalle richieste HTTP effettuate dagli utenti di gioco .
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il sistema mostra la lista dei log generati dalle richieste HTTP effettuate dagli utenti di gioco .
-  \end{itemize}
-\hypertarget{UC6.2}{}
-\subsection{Caso d'uso UC6.2: rimozione log}
-\begin{itemize}
-\item \textbf{Attori}: utente web, utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter rimuovere un log generato da una richiesta HTTP effettuata da un utente di gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso un browser web o attraverso le API REST esposte dal sistema. Il log che si vuole rimuovere deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato rimuove un log generato da una richiesta HTTP effettuata da un utente di gioco.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: il log viene rimosso dal sistema e non può più essere recuperato. Il sistema mostra all'utente una lista dei log ancora presenti nel sistema.
-  \end{itemize}
-\hypertarget{UC6.3}{}
-\subsection{Caso d'uso UC6.3: visualizzazione dettagli log}
-\begin{itemize}
-\item \textbf{Attori}: utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter visualizzare i dettagli di un log generato da una richiesta HTTP effettuata da un utente di gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso le API REST esposte dal sistema. Il log che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato visualizza l'utente di gioco che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato visualizza il metodo HTTP utilizzato per la richiesta;
-          \item L'utente autenticato visualizza l'URL alla quale è stata inoltrata la richiesta HTTP;
-          \item L'utente autenticato visualizza lo user agent utilizzato per inoltrare la richiesta HTTP;
-          \item L'utente autenticato visualizza l'indirizzo IP che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato visualizza i dati aggiuntivi trasportati dalla richiesta HTTP;
-          \item L'utente autenticato visualizza il timestamp relativo alla creazione del log.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: i dettagli del log vengono mostrati all'utente.
-  \end{itemize}
-\hypertarget{UC6.4}{}
-\subsection{Caso d'uso UC6.4: creazione nuovo log}
-\begin{itemize}
-\item \textbf{Attori}: utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter creare un nuovo log utilizzando i dettagli di da una richiesta HTTP effettuata da un utente di gioco; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso le API REST esposte dal sistema. Il log che si vuole visualizzare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato inserisce l'user che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato inserisce il metodo HTTP utilizzato per la richiesta;
-          \item L'utente autenticato inserisce l'URL indirizzato dalla richiesta HTTP;
-          \item L'utente autenticato inserisce lo user agent che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato inserisce l'indirizzo IP che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato inserisce i dati aggiuntivi trasportati dalla la richiesta HTTP;
-          \item L'utente autenticato inserisce il timestamp relativo alla creazione del corrente log.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: Il sistema crea un nuovo log e ne mostra i dettagli all'utente.
-  \end{itemize}
-\hypertarget{UC6.5}{}
-\subsection{Caso d'uso UC6.5: modifica dettagli log esistente}
-\begin{itemize}
-\item \textbf{Attori}: utente API;
-\item \textbf{Descrizione}: l'utente autenticato deve poter modificare log esistente ; 
-      \item \textbf{Precondizione}: l'utente autenticato accede alla piattaforma attraverso le API REST esposte dal sistema. Il log che si vuole modificare deve esistere;
-
-        \item \textbf{Flusso principale degli eventi}:
-          \begin{enumerate}
-          \item L'utente autenticato può modificare l'user che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato può modificare il metodo HTTP utilizzato per la richiesta;
-          \item L'utente autenticato può modificare l'URL indirizzato dalla richiesta HTTP;
-          \item L'utente autenticato può modificare lo user agent che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato può modificare l'indirizzo IP che ha effettuato la richiesta HTTP;
-          \item L'utente autenticato può modificare i dati aggiuntivi trasportati dalla la richiesta HTTP;
-          \item L'utente autenticato può modificare il timestamp relativo alla creazione del corrente log;
-          \item L'utente autenticato può modificare il timestamp relativo alla creazione del corrente log;
-          \item L'utente autenticato può modificare il timestamp relativo alla creazione del corrente log.
-
-      \end{enumerate}
-    \item \textbf{Postcondizione}: Il sistema apporta le modifiche richieste e mostra i dettagli del log modificato all'utente.
-  \end{itemize}
 \hypertarget{UC7}{}
 \subsection{Caso d'uso UC7: visualizzazione errore login}
 \begin{itemize}

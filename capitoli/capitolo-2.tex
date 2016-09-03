@@ -51,7 +51,7 @@ Il \textbf{modulo \gls{cms}\glsfirstoccur{}} incorpora la logica necessaria agli
 	\item Accedere all'elenco delle risposte fornite dagli utenti.
 \end{itemize}
 
-Entrambi i moduli Laravel utilizzano il medesimo database MySQL per la persistenza dei dati (Figura~\ref{fig:coupled}). 
+Entrambi i moduli Laravel utilizzano il medesimo database \gls{mysql}\glsfirstoccur{} per la persistenza dei dati (Figura~\ref{fig:coupled}). 
 Il database, pensato inizialmente per Vodafone, è stato adattato per diversi Plot, modificandolo di volta in volta. Le continue modifiche hanno portato ad avere un database inconsistente e poco manutenibile, a causa anche della scarsa documentazione.
 \\ \\
 Ogni modulo Laravel prevede un \gls{frontend}\glsfirstoccur{} collegato ad un relativo \gls{backend}\glsfirstoccur{}. Le logiche che sottendono i due \gls{backend}\glsfirstoccur{} sono, però, molto simili e questo porta ad avere codice duplicato e poco manutenibile.
@@ -81,7 +81,7 @@ La piattaforma Plot è in continua evoluzione e mira ad adattarsi, quanto più p
 \\ \\
 Dato il respiro internazionale e multinazionale dei potenziali clienti della piattaforma, deve essere implementato il concetto di \textbf{traducibilità}: ogni risorsa di testo importante ai fini del gioco deve poter essere localizzata in base alla lingua preferita dall'utente che ne usufruisce.
 \\ \\
-Mantenere uno storico delle azioni effettuate dai giocatori può risultare utile per individuare la causa di eventuali problemi inaspettati, si richiede quindi di prevedere un meccanismo di \textbf{logging} che registri e renda accessibili le richieste HTTP effettuate dai giocatori.
+Mantenere uno storico delle azioni effettuate dai giocatori può risultare utile per individuare la causa di eventuali problemi inaspettati, si richiede quindi di prevedere un meccanismo di \textbf{logging} che registri e renda accessibili le richieste \gls{http}\glsfirstoccur{} effettuate dai giocatori.
 \\ \\
 Il set di API REST ed il \gls{frontend}\glsfirstoccur{} del \gls{cms}\glsfirstoccur{} dovranno consentire di effettuare tutte le operazioni già disponibili dall'interfaccia grafica del \gls{cms}\glsfirstoccur{} di Plot 1.0 (elencate nella sezione "`\hyperref[sec:hello]{Il contesto}"`). 
 In aggiunta alle operazioni già note, dovrà essere possibile:
@@ -100,7 +100,7 @@ Non è richiesta un'interfaccia grafica professionale per il modulo \gls{cms}\gl
 %**************************************************************
 \section{Tecnologie utilizzate}
 \subsection{Database}
-Per gestire il database è stato scelto \textbf{MySQL Workbench}: uno strumento di amministrazione visuale che permette di creare e modificare agevolmente lo schema di un database MySQL.
+Per gestire il database è stato scelto \textbf{MySQL Workbench}: uno strumento di amministrazione visuale che permette di creare e modificare agevolmente lo schema di un database \gls{mysql}\glsfirstoccur{}.
 \\ \\
 La scelta è ricaduta su questo strumento in quanto: 
 \begin{itemize}
