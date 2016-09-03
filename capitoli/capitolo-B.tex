@@ -1,0 +1,68 @@
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = ../tesi.tex
+% !TEX spellcheck = it-IT
+
+%**************************************************************
+\chapter{API REST}
+%**************************************************************
+Negli anni 2000, con la diffusione crescente del web, inizia a prendere piede il concetto di \textbf{web service}: sistemi software che supportano l'interazione tra applicazioni diverse utilizzando gli standard web. Il meccanismo alla base dei web service permette di far comunicare applicazioni sviluppate con linguaggi di programmazione differenti e residenti su macchine differenti. In questo modo diventa possibile creare architetture modulari che esternalizzino le proprie funzionalità, in modo da ottenere un sistema facilmente componibile. \bigskip
+
+Ad oggi esistono fondamentalmente due approcci alla creazione di web service: \textbf{SOAP} e \textbf{REST}, il secondo risulta essere più diffuso in quanto permette la creazione di servizi altamente efficienti e facilmente scalabili.
+
+\section{REST}
+L'approccio \textit{REST}, acronimo di "\textit{REpresentational State Transfer}", si ispira ai principi architetturali tipici del web e si basa sul concetto di \textit{risorsa}. \\
+Secondo l'approccio REST:
+
+\begin{itemize}
+	\item Deve essere possibile identificare univocamente una risorsa;
+	\item I metodi forniti dal protocollo \gls{http}\glsfirstoccur{} devono essere usati in modo esplicito;
+	\item Ogni risorsa deve essere autodescrittiva;
+	\item Deve essere possibile collegare tra loro più risorse;
+	\item La comunicazione deve avvenire senza stato.
+\end{itemize}
+
+\subsection{Identificazione univoca delle risorse}
+Una \textbf{risorsa} è un qualsiasi elemento oggetto di elaborazione, solitamente mantenuto in un sistema di persistenza dei dati.
+L'identificazione si concretizza nell'utilizzo dello schema \textbf{URI}: ogni risorsa (sia essa un indirizzo web, un documento, un'immagine, ecc.) può essere identificata univocamente da una stringa. \bigskip
+
+Seguendo questa convenzione è possibile, ad esempio, identificare uno specifico utente attraverso la stringa:
+\begin{lstlisting}[frame=none]
+http://www.myapplication.com/users/1
+\end{lstlisting}
+
+Come principio generale conviene evitare di usare verbi negli URI, infatti risulta più appropriato utilizzare nomi in quanto gli URI identificano risorse e non azioni.
+
+\subsection{Uso esplicito dei metodi HTTP}
+Il protocollo \gls{http}\glsfirstoccur{} mette a disposizione nativamente i metodi (o verbi): GET, POST, PUT, DELETE. Questi metodi possono essere mappati sulle operazioni \gls{crud}\glsfirstoccur{}:  \bigskip
+
+\begin{table}[H]
+\centering
+	\begin{tabular}{ccc}
+		\toprule
+		\textbf{HTTP} & \textbf{CRUD} & \textbf{Descrizione}\\
+		\midrule
+		POST & Create & Crea una nuova risorsa \\
+		GET & Read & Recupera una risorsa esistente \\
+		PUT & Update & Aggiorna una risorsa \\
+		DELETE & Delete & Elimina una risorsa \\
+		\bottomrule \\
+	\end{tabular}
+	\caption{Associazione tra metodi HTTP e operazioni CRUD}
+\end{table}
+
+
+Seguendo questa convenzione è possibile, ad esempio, creare un nuovo utente inoltrando una richiesta \gls{http}\glsfirstoccur{} con metodo POST all'\gls{url}\glsfirstoccur{}:
+\begin{lstlisting}[frame=none]
+http://www.myapplication.com/users
+\end{lstlisting}
+
+\subsection{Risorse autodescrittive}
+Le risorse sono concettualmente diverse dalla loro rappresentazione che viene restituita al client. Questo significa che i web service non inviano ai client direttamente un record del database, ma delle rappresentazioni strutturate secondo la richiesta. Il tipo di rappresentazione viene allegato dal server alla risposta che fornisce al client e può essere, ad esempio, il formato \gls{json}\glsfirstoccur{}.
+
+\subsection{Collegamenti tra risorse}
+Le risorse che sono in relazione tra di loro devono esplicitare questo collegamento attraverso link ipertestuali. Questo fa in modo che tutta la conoscenza che il client deve avere sulla risorsa sia presente nella sua rappresentazione o sia accessibile tramite collegamenti ipertestuali.
+
+\subsection{Comunicazione senza stato}
+Il principio della \textit{comunicazione stateless} è una delle caratteristiche fondamentali del protocollo \gls{http}\glsfirstoccur{}: ogni richiesta non ha alcuna relazione con le richieste future o passate. Questo significa che la gestione dello stato dell'applicazione deve essere appannaggio del client, non del server.
+
