@@ -20,7 +20,7 @@ Per ottenere lo schema finale è stato innanzitutto modellato uno schema concett
 \end{itemize}
 
 \subsection{Dizionario delle entità} %**************************
-La tabella seguente documenta il significato delle entità rappresentate nello schema finale del database, in modo da evitare quanto più possibile situazioni di ambiguità. \\
+La tabella~\ref{tab:dizionario-entita} documenta il significato delle entità rappresentate nello schema finale del database, in modo da evitare quanto più possibile situazioni di ambiguità. \\
 
 Ogni entità è dotata degli attributi: id, created\_at, updated\_at. Questi non sono stati riportati nel dizionario delle entità, in quanto sono stati messi in risalto solo gli attributi caratteristici di ogni entità.
 
@@ -56,11 +56,12 @@ made\_team\_questions            & Associazione tra i team e le domande ad essi 
 team\_answers                    & Risposte fornite dai team in merito alle domande ad essi effettivamente rivolte                      & content, is\_correct                                                                      \\ \midrule
 scores                           & Punteggi ottenuti dai team nel completare le varie mission                           & points \\
 	\bottomrule \\
-	\caption{Dizionario delle entità} \\
+	\caption{Dizionario delle entità} 
+	\label{dizionario-entita} \\
 \end{longtabu}
 
 \subsection{Dizionario delle relazioni} %**************************
-La tabella seguente documenta il significato delle relazioni rappresentate nello schema finale del database, in modo da evitare quanto più possibile situazioni di ambiguità. \\
+La tabella~\ref{tab:dizionario-relazioni} documenta il significato delle relazioni rappresentate nello schema finale del database, in modo da evitare quanto più possibile situazioni di ambiguità. \\
 La colonna "Entità" riporta le entità partecipanti alla relazione, accompagnate dalla loro cardinalità.
 
 \begin{longtabu} to \textwidth {l X[2] X}
@@ -105,7 +106,8 @@ unveil     & Collega una associazione tra domanda di tipo team e il team al qual
 have     & Associa un team ai punteggi ottenuti nella risoluzione delle varie mission   & teams (0,N)\par scores (1,1)\\ \midrule
 have     & Associa un punteggio con la mission nella quale è stato ottenuto   & scores (1,1)\par missions (0,N)\\ 
 	\bottomrule \\
-	\caption{Dizionario delle relazioni} \\
+	\caption{Dizionario delle relazioni} 
+	\label{dizionario-relazioni}\\
 \end{longtabu}
 
 
@@ -114,8 +116,8 @@ Alcuni vincoli e proprietà non sono immediatamente deducibili dallo schema del 
 \begin{enumerate}
 	\item Ogni utente può inviare al più un invito a qualsiasi altro utente;
 	\item Un utente può scegliere un'unica lingua preferita;
-	\item Un utente può afferire al più ad un ambito lavorativo;
-	\item Un utente può appartenere al più ad un'area geografica;
+	\item Un utente può afferire al più ad ambito lavorativo;
+	\item Un utente può appartenere al più un'area geografica;
 	\item Uno punteggio deve appartenere ad un unico team e può riferirsi ad un'unica mission completata da tale team;
 	\item Un post deve appartenere ad un'unica mission;
 	\item Una domanda utente deve appartenere ad un unico post di tipo captcha;
@@ -124,7 +126,7 @@ Alcuni vincoli e proprietà non sono immediatamente deducibili dallo schema del 
 	\item Un'area geografica deve appartenere ad un unico fuso orario;
 	\item Una risposta corretta deve riferirsi ad un'unica domanda;
 	\item Una risposta deve riferirsi ad un'unica domanda;
-	\item Un log deve riferirirsi ad un unico utente;
+	\item Un log deve riferirsi ad un unico utente;
 	\item Una traduzione deve riferirsi ad un unico contenuto traducibile e ad un'unica lingua.
 \end{enumerate}
 
@@ -132,7 +134,7 @@ Alcuni vincoli e proprietà non sono immediatamente deducibili dallo schema del 
 \section{Progettazione ed implementazione del CMS}
 \subsection{Descrizione dell'architettura}
 Il framework Laravel agevola l'adozione del pattern architetturale \textbf{model-view-controller (MVC)}, che impone la suddivisione della \textit{business logic} dalla \textit{presentation logic}. Nelle applicazioni Laravel, la business logic coincide spesso con modelli di dati persistenti in un database mentre la presentation logic si concretizza in una serie di pagine web. \\
-Il pattern MVC prevede tre componenti principali: \textbf{model}, \textbf{view} e \textbf{controller}.
+Il pattern MVC prevede tre componenti principali: \textbf{model}, \textbf{view} e \textbf{controller} (figura~\ref{fig:mvc}).
 
 \begin{figure}
 	\centering
@@ -167,13 +169,13 @@ Le convenzioni del framework Laravel consigliano di posizionare le istanze del c
 
 %**************************************************************
 \section{Descrizione delle classi}
-Di seguito sono descritte le classi e le interfacce più significative che compongono il \gls{cms}\glsfirstoccur{}, suddivise in base alla componente alla quale appartengono. \\
+Di seguito sono descritte le classi e le interfacce più significative che compongono il \gls{cms}\glsfirstoccur{}, suddivise in base alla componente alla quale appartengono (le componenti fondanti del sistema sono riportate in figura~\ref{fig:components}). \\
 Le classi appartenenti alla stessa componente hanno spesso implementazione simile in quanto, di base, permettono il compimento delle azioni \gls{crud}\glsfirstoccur{} su risorse di tipo diverso. Per evitare di appesantire la documentazione, è stato scelto di fornire un esempio di classe laddove la descrizione di tutte le classi avrebbe reso il testo fortemente ridondante. \\
 Le classi appartenenti al framework sono state evidenziate in arancio nei diagrammi che le prevedono, in modo da poterle individuare facilmente.
 
 \subsection{app::Models} %*******************************************************************************************
 
-Le classi appartenenti a questa componente forniscono un'astrazione delle entità presenti nel database collegato alla piattaforma e sono utilizzate per interagire con esse. \\
+Le classi appartenenti a questa componente (figura~\ref{fig:models}) forniscono un'astrazione delle entità presenti nel database collegato alla piattaforma e sono utilizzate per interagire con esse. \\
 L'\gls{orm}\glsfirstoccur{} \textit{Eloquent} richiede che tutti i model espongano particolari metodi utili a descrivere le relazioni esistenti tra le entità rappresentate dai model stessi a livello di database.
 
 \begin{figure}[H]
@@ -183,7 +185,7 @@ L'\gls{orm}\glsfirstoccur{} \textit{Eloquent} richiede che tutti i model esponga
 	\label{fig:mission} 
 \end{figure}
 
-Ad esempio, la classe Mission prevede i seguenti metodi:
+Ad esempio, la classe Mission (figura~\ref{fig:mission}) prevede i seguenti metodi:
 
 \begin{itemize}
 	\item \verb!name()!: rappresenta la relazione con cardinalità 1-1 tra una mission ed il contenuto traducibile che corrisponde al nome della mission stessa;
@@ -212,8 +214,8 @@ Maggiori dettagli sui metodi esposti dall'\gls{orm}\glsfirstoccur{} Eloquent per
 	\label{fig:repositories} 
 \end{figure}
 
-Le classi e le interfacce appartenenti a questa componente sono utilizzate per implementare il design pattern \textbf{Repository}, utile per disaccoppiare la \textit{business logic} dal sistema di persistenza dati effettivamente utilizzato. In questo modo le istanze del controller possono effettuare query in modo dichiarativo sulle istanze del model, lasciando che siano i repository ad occuparsi dei dettagli implementativi delle query stesse. \\
-Concettualmente, un repository incapsula l'insieme delle operazioni disponibili sulle entità di un database, così da fornire un modo più \textit{object-oriented} per accedervi.\\ \\
+Le classi e le interfacce appartenenti a questa componente (figura~\ref{fig:repositories}) sono utilizzate per implementare il design pattern \textbf{Repository}, utile per disaccoppiare la \textit{business logic} dal sistema di persistenza dati effettivamente utilizzato. In questo modo le istanze del controller possono effettuare query in modo dichiarativo sulle istanze del model, lasciando che siano i repository ad occuparsi dei dettagli implementativi delle query stesse. \\
+Concettualmente, un repository incapsula l'insieme delle operazioni disponibili sulle entità di un database, così da fornire un modo più \textit{object-oriented} per accedervi.\bigskip
 
 Le istanze di repository possono essere fondamentalmente di due tipi, in base al model che devono trattare:
 \begin{itemize}
@@ -236,7 +238,7 @@ Per modellare la situazione sopra descritta sono state usate delle interfacce:
 	\item \textbf{Repositories::SecondLevelRepositoryInterface}: espone metodi per effettuare il recupero e la creazione di risorse che necessitano di una risorsa padre. Estende \verb!RepositoryInterface!.
 \end{itemize}
 
-Un esempio di repository \textit{first level} è MissionRepository, mentre un esempio di repository \textit{second level} è TextPostRepository. Il secondo differisce dal primo a causa del parametro \verb!parent_id!, necessario per individuare il padre della risorsa da creare e/o recuperare.
+In figura~\ref{fig:repository-example} sono riportati un esempio di repository \textit{first level} ed un esempio di repository \textit{second level}: MissionRepository e TextPostRepository. Il secondo differisce dal primo a causa del parametro \verb!parent_id!, necessario per individuare il padre della risorsa da creare e/o recuperare.
 
 \subsection{resources::views} %******************************************************************************************
 
@@ -257,7 +259,7 @@ Per aumentare la modularizzazione delle view e la loro manutenibilità è stato 
 \end{itemize}
 
 L'utilizzo dei template ha reso possibile introdurre il concetto di ereditarietà, seppur abbastanza superficiale, nell'ambito HTML che ne è storicamente sprovvisto. \\
-I file contenenti le view sono poi stati suddivisi sulla base del model al quale sono collegati. Ad esempio, nella sotto-componente \textbf{views::missions} sono contenuti i file:
+I file contenenti le view sono poi stati suddivisi sulla base del model al quale sono collegati (figura~\ref{fig:views}). Ad esempio, nella sotto-componente \textbf{views::missions} sono contenuti i file:
 
 \begin{itemize}
 	\item \textbf{all.blade}: struttura della view che mostra la lista di tutte le mission previste dal gioco;
@@ -278,7 +280,7 @@ Tutte le view estendono \textbf{app.blade} in modo da mantenere un \textit{look-
 
 \subsection{app::Http::Controllers} %*******************************************************************************************
 
-Le classi e le interfacce appartenenti a questa componente sono deputate alla gestione delle richieste \gls{http}\glsfirstoccur{} in entrata: ogni richiesta viene inoltrata allo specifico controller in grado di soddisfarla. 
+Le classi e le interfacce appartenenti a questa componente (figura~\ref{fig:controllers}) sono deputate alla gestione delle richieste \gls{http}\glsfirstoccur{} in entrata: ogni richiesta viene inoltrata allo specifico controller in grado di soddisfarla. 
 \\ \\
 Nel framework Laravel, una \textit{route} rappresenta l'associazione tra una richiesta \gls{http}\glsfirstoccur{} e il controller utile alla sua risoluzione, tutte le route previste sono salvate nel file \verb!app/Http/routes.php!. 
 Un esempio di route è il seguente:
@@ -330,16 +332,16 @@ Per modellare la situazione sopra descritta sono state utilizzate delle classi a
 
 L'interfaccia dei controller è composta da una serie di metodi utili per: creare una nuova risorsa, recuperare una determinata risorsa, aggiornare una determinata risorsa, eliminare una determinata risorsa. \bigskip
 
-Le classi appartenenti a questa componente adoperano il design pattern \textbf{Dependency Injection} per separare il loro comportamento dalla risoluzione delle dipendenze che espongono. In particolare questo pattern è utilizzato per \textit{iniettare}, utilizzando il costruttore della classe, le dipendenze relative ai repository usati da ogni controller.
-
 \begin{figure}[H]
 	\centering
   \includegraphics[scale=0.5, width=\textwidth]{immagini/components/controllers_example.png}
   \caption{Diagramma delle classi ApiMissionController e WebMissionController}
 	\label{fig:controller-example} 
 \end{figure}
+
+Le classi appartenenti a questa componente adoperano il design pattern \textbf{Dependency Injection} per separare il loro comportamento dalla risoluzione delle dipendenze che espongono. In particolare questo pattern è utilizzato per \textit{iniettare}, utilizzando il costruttore della classe, le dipendenze relative ai repository usati da ogni controller.
  
-Due esempi di controller di tipo \textit{first level} sono i controller adibiti alla gestione delle mission: ApiMissionController e WebMissionController. Questi controller derivano da \textbf{AbstractMissionController} che si occcupa di implementare i metodi ereditati da AbstractFirstLevelController. Le classi concrete \textbf{ApiMissionController} e \textbf{WebMissionController} hanno invece due compiti: 
+Due esempi di controller di tipo \textit{first level} sono i controller adibiti alla gestione delle mission (figura~\ref{fig:controller-example}): ApiMissionController e WebMissionController. Questi controller derivano da \textbf{AbstractMissionController} che si occcupa di implementare i metodi ereditati da AbstractFirstLevelController. Le classi concrete \textbf{ApiMissionController} e \textbf{WebMissionController} hanno invece due compiti: 
 
 \begin{itemize}
 	\item Esporre eventuali metodi specifici e relativi ad una sola modalità di accesso, ad esempio i controller che gestiscono l'accesso tramite web (come WebMissionController) espongono metodi per mostrare i form utili alla creazione e aggiornamento delle risorse, questo non è necessario per i controller che gestiscono l'accesso tramite API (come ApiMissionController);
@@ -361,7 +363,7 @@ La differenza fondamentale tra l'accesso tramite browser web e l'accesso tramite
 	\item Se l'accesso avviene tramite API REST, l'utente si aspetta di poter interagire con un formato di dati strutturato. In questo caso è stato scelto di fornire all'utente un pacchetto di dati in formato \gls{json}\glsfirstoccur{} in quando tale formato è oggi largamente utilizzato nello scambio di dati sul web, inoltre il framework Laravel ne rende molto agevole la manipolazione.
 \end{itemize} 
 
-Questa componente contiene due \gls{trait}\glsfirstoccur{} che si occupano proprio di formattare il risultato della richiesta in modo adeguato:
+Questa componente (figura~\ref{fig:formatters}) contiene due \gls{trait}\glsfirstoccur{} che si occupano proprio di formattare il risultato della richiesta in modo adeguato:
 \begin{itemize}
 	\item \textbf{Formatters::JsonFormatter}: restituisce i dati in formato \gls{json}\glsfirstoccur{};
 	\item \textbf{Formatters::WebFormatter}: restituisce i dati attraverso una web view.
