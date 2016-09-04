@@ -4,30 +4,27 @@
 % !TEX spellcheck = it-IT
 
 %**************************************************************
-\chapter{Descrizione dello stage}
-\label{cap:descrizione-stage}
+\chapter{Verifica e validazione}
+\label{cap:verifica-validazione}
 %**************************************************************
+Per tenere sotto controllo il livello di qualità del prodotto durante il suo ciclo di sviluppo, interno al periodo di stage, si è cercato di spendere la giusta quantità di tempo nelle attività di verifica e validazione. In questo ambito le tempistiche sono importanti in quanto un investimento di tempo troppo grande rischia di ridurre quello disponibile per lo sviluppo di nuove funzionalità mentre un investimento troppo piccolo può portare ad un prodotto di qualità insufficiente. \\
+La qualità, se riferita ad un prodotto, può avere almeno due accezioni:
 
-\intro{Breve introduzione al capitolo}\\
+\begin{itemize}
+	\item Qualità intrinseca: indica che il prodotto è conforme ai requisiti ed è idoneo all'uso. Per verificare se il prodotto è conforme a questo tipo di qualità è possibile definire dei test che accertino la copertura dei requisiti;
+	\item Qualità relativa: indica che il prodotto soddisfa il cliente. Il soddisfacimento del cliente va spesso oltre la copertura dei meri requisiti, l'accertamento della qualità relativa è quindi più difficilmente automatizzabile e coinvolge spesso in prima persona l'utente ed il cliente.
+\end{itemize}
 
-%**************************************************************
-\section{Introduzione al progetto}
+Attraverso la \textbf{verifica} è possibile accertare che il prodotto, in una certa fase del proprio ciclo di sviluppo, aderisca ai requisiti il cui soddisfacimento è stato previsto per tale fase. In generale la verifica si applica sia al codice che alla documentazione di supporto, in questo progetto non è stato però previsto formalmente alcun tipo documentazione e la verifica è stata limitata al codice prodotto. \bigskip
 
-%**************************************************************
-\section{Analisi preventiva dei rischi}
+Attraverso la \textbf{validazione} è possibile accertare che il prodotto finito soddisfa tutti i requisiti fissati in fase di analisi, la verifica può essere quindi intesa come precondizione della validazione. \bigskip
 
-Durante la fase di analisi iniziale sono stati individuati alcuni possibili rischi a cui si potrà andare incontro.
-Si è quindi proceduto a elaborare delle possibili soluzioni per far fronte a tali rischi.\\
+Verifica e validazione si sono concretizzate soprattutto in attività di \textbf{analisi dinamica}: richiedono la progettazione di \textit{test} ripetibili che accertino l'aderenza del prodotto o di una sua parte ai requisiti imposti. In particolare, i test previsti sono di due tipologie:
 
-\begin{risk}{Performance del simulatore hardware}
-    \riskdescription{le performance del simulatore hardware e la comunicazione con questo potrebbero risultare lenti o non abbastanza buoni da causare il fallimento dei test}
-    \risksolution{coinvolgimento del responsabile a capo del progetto relativo il simulatore hardware}
-    \label{risk:hardware-simulator} 
-\end{risk}
+\begin{itemize}
+	\item \textbf{Test di unità}: hanno il compito di testare la più piccola quantità di software che mantiene significato anche se estrapolata dal contesto, in modo da accertare che non presenti errori e che sia conforme alla progettazione. Nello specifico, tutte le classi concrete individuate durante la progettazione sono state testate;
+	\item \textbf{Test di integrazione}: una volta testate in isolamento le varie classi, si procede ad accertare che l'interazione tra esse avvenga come progettato e non dia luogo ad errori.
+\end{itemize}
 
-%**************************************************************
-\section{Requisiti e obiettivi}
+Per configurare ed utilizzare l'ambiente di test è stato usato il framework \textbf{PHPUnit} (\url{https://phpunit.de/}) integrato in Laravel.
 
-
-%**************************************************************
-\section{Pianificazione}
